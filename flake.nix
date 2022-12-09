@@ -29,7 +29,7 @@
         };
 
         rustWithWasiTarget = pkgs.rust-bin.stable.latest.default.override {
-          targets = [ "wasm32-wasi" ];
+          targets = [ "wasm32-unknown-unknown" ];
         };
 
         # NB: we don't need to overlay our custom toolchain for the *entire*
@@ -41,7 +41,7 @@
         my-crate = craneLib.buildPackage {
           src = craneLib.cleanCargoSource ./.;
 
-          cargoExtraArgs = "--target wasm32-wasi";
+          cargoExtraArgs = "--target wasm32-unknown-unknown";
 
           # Tests currently need to be run via `cargo wasi` which
           # isn't packaged in nixpkgs yet...
@@ -54,17 +54,31 @@
             pkgs.libiconv
           ];
         };
+
+        wasm = pkgs.stdenv.mkDerivation {
+          name = "wasm";
+          src = self;
+          phases = [ "buildPhase" "installPhase" ];
+          buildInputs = [
+            pkgs.wasm-bindgen-cli
+          ];
+          buildPhase = ''
+            cp ${my-crate}/bin/crane-bug-dioxus.wasm web.wasm
+            mkdir pkg
+            wasm-bindgen --target web --out-dir pkg web.wasm
+          '';
+        };
       in
       {
         checks = {
           inherit my-crate;
         };
 
-        packages.default = my-crate;
+        packages.default = wasm;
 
         apps.default = flake-utils.lib.mkApp {
           drv = pkgs.writeShellScriptBin "my-app" ''
-            ${pkgs.wasmtime}/bin/wasmtime run ${my-crate}/bin/custom-toolchain.wasm
+            ${pkgs.python3}/bin/python3 -m http.server -d ${wasm} 8080
           '';
         };
 
