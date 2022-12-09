@@ -3,6 +3,17 @@
 version = 3
 
 [[package]]
+name = "ahash"
+version = "0.7.6"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "fcb51a0695d8f838b1ee009b3fbf66bda078cd64590202a864a8f3e8c4315c47"
+dependencies = [
+ "getrandom",
+ "once_cell",
+ "version_check",
+]
+
+[[package]]
 name = "anyhow"
 version = "1.0.66"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -106,7 +117,7 @@ dependencies = [
 [[package]]
 name = "dioxus"
 version = "0.2.4"
-source = "git+https://github.com/DioxusLabs/dioxus#937eb1f0f0e3e71b09a6b74a1d8f70fba0e75bdf"
+source = "git+https://github.com/DioxusLabs/dioxus#dbf59f7c571398a18bf3f771465f6b8b7c9c2db3"
 dependencies = [
  "dioxus-core",
  "dioxus-core-macro",
@@ -118,7 +129,7 @@ dependencies = [
 [[package]]
 name = "dioxus-core"
 version = "0.2.1"
-source = "git+https://github.com/DioxusLabs/dioxus#937eb1f0f0e3e71b09a6b74a1d8f70fba0e75bdf"
+source = "git+https://github.com/DioxusLabs/dioxus#dbf59f7c571398a18bf3f771465f6b8b7c9c2db3"
 dependencies = [
  "anyhow",
  "bumpalo",
@@ -129,12 +140,13 @@ dependencies = [
  "longest-increasing-subsequence",
  "serde",
  "slab",
+ "smallbox",
 ]
 
 [[package]]
 name = "dioxus-core-macro"
 version = "0.2.1"
-source = "git+https://github.com/DioxusLabs/dioxus#937eb1f0f0e3e71b09a6b74a1d8f70fba0e75bdf"
+source = "git+https://github.com/DioxusLabs/dioxus#dbf59f7c571398a18bf3f771465f6b8b7c9c2db3"
 dependencies = [
  "dioxus-rsx",
  "proc-macro2",
@@ -145,7 +157,7 @@ dependencies = [
 [[package]]
 name = "dioxus-hooks"
 version = "0.2.1"
-source = "git+https://github.com/DioxusLabs/dioxus#937eb1f0f0e3e71b09a6b74a1d8f70fba0e75bdf"
+source = "git+https://github.com/DioxusLabs/dioxus#dbf59f7c571398a18bf3f771465f6b8b7c9c2db3"
 dependencies = [
  "dioxus-core",
  "futures-channel",
@@ -155,7 +167,7 @@ dependencies = [
 [[package]]
 name = "dioxus-html"
 version = "0.2.1"
-source = "git+https://github.com/DioxusLabs/dioxus#937eb1f0f0e3e71b09a6b74a1d8f70fba0e75bdf"
+source = "git+https://github.com/DioxusLabs/dioxus#dbf59f7c571398a18bf3f771465f6b8b7c9c2db3"
 dependencies = [
  "async-trait",
  "dioxus-core",
@@ -169,19 +181,20 @@ dependencies = [
 [[package]]
 name = "dioxus-interpreter-js"
 version = "0.2.1"
-source = "git+https://github.com/DioxusLabs/dioxus#937eb1f0f0e3e71b09a6b74a1d8f70fba0e75bdf"
+source = "git+https://github.com/DioxusLabs/dioxus#dbf59f7c571398a18bf3f771465f6b8b7c9c2db3"
 dependencies = [
  "js-sys",
+ "sledgehammer_bindgen",
+ "sledgehammer_utils",
  "wasm-bindgen",
  "web-sys",
 ]
 
 [[package]]
 name = "dioxus-rsx"
-version = "0.0.0"
-source = "git+https://github.com/DioxusLabs/dioxus#937eb1f0f0e3e71b09a6b74a1d8f70fba0e75bdf"
+version = "0.0.1"
+source = "git+https://github.com/DioxusLabs/dioxus#dbf59f7c571398a18bf3f771465f6b8b7c9c2db3"
 dependencies = [
- "dioxus-core",
  "proc-macro2",
  "quote",
  "serde",
@@ -191,7 +204,7 @@ dependencies = [
 [[package]]
 name = "dioxus-web"
 version = "0.2.1"
-source = "git+https://github.com/DioxusLabs/dioxus#937eb1f0f0e3e71b09a6b74a1d8f70fba0e75bdf"
+source = "git+https://github.com/DioxusLabs/dioxus#dbf59f7c571398a18bf3f771465f6b8b7c9c2db3"
 dependencies = [
  "anyhow",
  "console_error_panic_hook",
@@ -205,6 +218,7 @@ dependencies = [
  "log",
  "once_cell",
  "rustc-hash",
+ "serde",
  "serde-wasm-bindgen",
  "serde_json",
  "smallstr",
@@ -305,6 +319,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "getrandom"
+version = "0.2.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c05aeb6a22b8f62540c194aac980f2115af067bfe15a0734d7277a768d396b31"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "wasi",
+]
+
+[[package]]
 name = "gloo-timers"
 version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -321,6 +346,9 @@ name = "hashbrown"
 version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
+dependencies = [
+ "ahash",
+]
 
 [[package]]
 name = "ident_case"
@@ -365,6 +393,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "libc"
+version = "0.2.138"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "db6d7e329c562c5dfab7a46a2afabc8b987ab9a4834c9d1ca04dc54c1546cef8"
+
+[[package]]
 name = "log"
 version = "0.4.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -378,6 +412,15 @@ name = "longest-increasing-subsequence"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b3bd0dd2cd90571056fdb71f6275fada10131182f84899f4b2a916e565d81d86"
+
+[[package]]
+name = "lru"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b6e8aaa3f231bb4bd57b84b2d5dc3ae7f350265df8aa96492e0bc394a1571909"
+dependencies = [
+ "hashbrown",
+]
 
 [[package]]
 name = "num-traits"
@@ -488,6 +531,34 @@ dependencies = [
 ]
 
 [[package]]
+name = "sledgehammer_bindgen"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7d0531b307fcb756541e1262daf24544886f193c7773694d1d3b388287e5153e"
+dependencies = [
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "sledgehammer_utils"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bded7f44df7c0e2ba7352fa511cd36c9fa817665d8e05b221ff43534543431a5"
+dependencies = [
+ "lru",
+ "once_cell",
+ "rustc-hash",
+ "ux",
+]
+
+[[package]]
+name = "smallbox"
+version = "0.8.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4679d6eef28b85020158619fc09769de89e90886c5de7157587d87cb72648faa"
+
+[[package]]
 name = "smallstr"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -524,6 +595,24 @@ name = "unicode-segmentation"
 version = "1.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0fdbf052a0783de01e944a6ce7a8cb939e295b1e7be835a1112c3b9a7f047a5a"
+
+[[package]]
+name = "ux"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2cb3ff47e36907a6267572c1e398ff32ef78ac5131de8aa272e53846592c207e"
+
+[[package]]
+name = "version_check"
+version = "0.9.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "49874b5167b65d7193b8aba1567f5c7d93d001cafc34600cee003eda787e483f"
+
+[[package]]
+name = "wasi"
+version = "0.11.0+wasi-snapshot-preview1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 
 [[package]]
 name = "wasm-bindgen"
