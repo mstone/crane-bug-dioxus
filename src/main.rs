@@ -1,4 +1,7 @@
 use dioxus::prelude::*;
+use dioxus_web;
+use wasm_logger;
+use console_error_panic_hook;
 
 pub struct AppProps {}
 
@@ -7,7 +10,7 @@ pub fn app(cx: Scope<AppProps>) -> Element {
         div {
             "Hello, world!"
         }
-    }
+    })
 }
 
 fn main() {
